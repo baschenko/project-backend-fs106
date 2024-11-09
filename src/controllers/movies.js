@@ -1,9 +1,13 @@
 import createHttpError from 'http-errors';
 import * as movieServices from '../services/movies.js';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getMoviesController = async (req, res) => {
-  const data = await movieServices.getMovies();
-  console;
+  const { page, perPage } = parsePaginationParams(req.query);
+  console.log(page);
+  console.log(perPage);
+
+  const data = await movieServices.getMovies({ page, perPage });
 
   res.json({
     status: 200,
