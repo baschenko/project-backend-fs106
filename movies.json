@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Avatar",
+    "director": "James Cameron",
+    "type": "film"
+  },
+  {
+    "title": "I Am Legend",
+    "director": "Francis Lawrence",
+    "type": "film"
+  },
+  {
+    "title": "300",
+    "director": "Zack Snyder",
+    "type": "film"
+  },
+  {
+    "title": "The Avengers",
+    "director": "Joss Whedon",
+    "type": "film"
+  },
+  {
+    "title": "The Wolf of Wall Street",
+    "director": "Martin Scorsese",
+    "type": "film"
+  },
+  {
+    "title": "Interstellar",
+    "director": "Christopher Nolan",
+    "type": "film"
+  },
+  {
+    "title": "Game of Thrones",
+    "director": "N/A",
+    "type": "film"
+  },
+  {
+    "title": "Vikings",
+    "director": "N/A",
+    "type": "serials"
+  }
+]
