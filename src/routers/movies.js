@@ -19,7 +19,7 @@ moviesRouter.get(
 
 moviesRouter.post(
   '/',
-  //   validateBody(movieAddSchema),
+  validateBody(movieAddSchema),
   ctrlWrapper(moviesController.addMovieControler),
 );
 

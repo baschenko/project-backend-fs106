@@ -8,8 +8,8 @@ const movieSchema = new Schema(
     title: {
       type: String,
       required: true,
-      // minLength: 3,
-      // maxLength: 6,
+      minLength: 3,
+      maxLength: 20,
     },
     director: {
       type: String,
@@ -28,6 +28,8 @@ const movieSchema = new Schema(
 movieSchema.post('save', handleSaveError);
 movieSchema.pre('findOneAndUpdate', setUpdateSettings);
 movieSchema.post('findOneAndUpdate', handleSaveError);
+
+export const sortByList = ['title', 'director', 'type'];
 
 const MovieCollection = model('movies', movieSchema);
 

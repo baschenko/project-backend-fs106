@@ -1,13 +1,19 @@
 import createHttpError from 'http-errors';
 import * as movieServices from '../services/movies.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { sortByList } from '../db/models/Movies.js';
 
 export const getMoviesController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
-  console.log(page);
-  console.log(perPage);
+  const { sortBy, sortOrder } = parseSortParams(req.query, sortByList);
 
-  const data = await movieServices.getMovies({ page, perPage });
+  const data = await movieServices.getMovies({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+  });
 
   res.json({
     status: 200,
