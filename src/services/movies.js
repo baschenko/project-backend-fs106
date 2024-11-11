@@ -6,14 +6,25 @@ export const getMovies = async ({
   perPage = 10,
   sortBy = '_id',
   sortOrder = 'asc',
+  filter = {},
 }) => {
   const skip = (page - 1) * perPage;
 
-  const data = await MovieCollection.find()
+  const query = MovieCollection.find()
     .skip(skip)
     .limit(perPage)
     .sort({ [sortBy]: sortOrder });
-  const totalItems = await MovieCollection.countDocuments();
+  if (filter.minReleaseYear) {
+    query.where('releaseYear').gte(filter.minReleaseYear);
+  }
+
+  if (filter.maxReleaseYear) {
+    query.where('releaseYear').lte(filter.maxReleaseYear);
+  }
+
+  const data = await query;
+
+  const totalItems = await MovieCollection.find().merge(query).countDocuments();
   const paginationData = calculatePaginationData({ totalItems, page, perPage });
   return {
     data,

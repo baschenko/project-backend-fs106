@@ -21,6 +21,11 @@ const movieSchema = new Schema(
       default: 'film',
       required: true,
     },
+    releaseYear: {
+      type: Number,
+      min: 1985,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true },
 );
