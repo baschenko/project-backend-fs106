@@ -6,13 +6,17 @@ import ctrlWrapper from '../utils/ctrlWrapper.js';
 import validateBody from '../utils/validateBody.js';
 import { movieAddSchema, movieUpdateSchema } from '../validation/movies.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const moviesRouter = Router();
+
+moviesRouter.use(authenticate);
 
 moviesRouter.get('/', ctrlWrapper(moviesController.getMoviesController));
 
 moviesRouter.get(
   '/:id',
+  authenticate,
   isValidId,
   ctrlWrapper(moviesController.getMovieByIdController),
 );

@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
+
 import { env } from './utils/env.js';
 
 import moviesRouter from './routers/movies.js';
@@ -15,6 +17,7 @@ export const startServer = () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use(cookieParser());
 
   // app.use(logger);
 
@@ -25,7 +28,7 @@ export const startServer = () => {
 
   app.use(errorHandler);
 
-  const port = Number(env('PORT', 3000));
+  const port = Number(env('PORT', 3001));
 
   app.listen(port, () => console.log(`Server running on ${port} port`));
 };
