@@ -1,12 +1,15 @@
 import { Router } from 'express';
+
+import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
+import { upload } from '../middlewares/upload.js';
+
 import * as moviesController from '../controllers/movies.js';
 
 import ctrlWrapper from '../utils/ctrlWrapper.js';
-
 import validateBody from '../utils/validateBody.js';
+
 import { movieAddSchema, movieUpdateSchema } from '../validation/movies.js';
-import { isValidId } from '../middlewares/isValidId.js';
-import { authenticate } from '../middlewares/authenticate.js';
 
 const moviesRouter = Router();
 
@@ -23,8 +26,9 @@ moviesRouter.get(
 
 moviesRouter.post(
   '/',
+  upload.single('poster'),
   validateBody(movieAddSchema),
-  ctrlWrapper(moviesController.addMovieControler),
+  ctrlWrapper(moviesController.addMovieController),
 );
 
 moviesRouter.put(

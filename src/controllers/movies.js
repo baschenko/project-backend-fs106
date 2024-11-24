@@ -1,9 +1,18 @@
 import createHttpError from 'http-errors';
+import * as path from 'node:path';
+
 import * as movieServices from '../services/movies.js';
+
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
-import { sortByList } from '../db/models/Movies.js';
 import { parseMovieFilterParams } from '../utils/parseMovieFilterParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+
+import { sortByList } from '../db/models/Movies.js';
+import { env } from '../utils/env.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+
+const enableCloudinary = env('ENABLE_CLOUDINARY');
 
 export const getMoviesController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -43,10 +52,20 @@ export const getMovieByIdController = async (req, res) => {
   });
 };
 
-export const addMovieControler = async (req, res) => {
+export const addMovieController = async (req, res) => {
   const { _id: userId } = req.user;
+  let poster = null;
 
-  const data = await movieServices.addMovie({ ...req.body, userId });
+  if (req.file) {
+    if (enableCloudinary === 'true') {
+      poster = await saveFileToCloudinary(req.file, 'posters');
+    } else {
+      await saveFileToUploadDir(req.file);
+      poster = path.join(req.file.filename);
+    }
+  }
+  console.log(poster);
+  const data = await movieServices.addMovie({ ...req.body, poster, userId });
 
   res.status(201).json({
     status: 201,
