@@ -13,3 +13,7 @@ export const authLoginShema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
 });
+
+export const authOAuthGoogleSchema = Joi.object({
+  code: Joi.string().required(),
+});

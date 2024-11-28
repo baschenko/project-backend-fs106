@@ -3,7 +3,11 @@ import { Router } from 'express';
 import * as authControllers from '../controllers/auth.js';
 import ctrlWrapper from '../utils/ctrlWrapper.js';
 import validateBody from '../utils/validateBody.js';
-import { authLoginShema, authRegisterShema } from '../validation/auth.js';
+import {
+  authLoginShema,
+  authOAuthGoogleSchema,
+  authRegisterShema,
+} from '../validation/auth.js';
 
 const authRouter = Router();
 
@@ -27,5 +31,16 @@ authRouter.post(
 );
 
 authRouter.post('/logout', ctrlWrapper(authControllers.logoutController));
+
+authRouter.get(
+  '/get-oauth-url',
+  ctrlWrapper(authControllers.getGoogleOAuthUrlController),
+);
+
+authRouter.post(
+  '/confirm-oauth',
+  validateBody(authOAuthGoogleSchema),
+  ctrlWrapper(authControllers.loginWithGoogleController),
+);
 
 export default authRouter;
