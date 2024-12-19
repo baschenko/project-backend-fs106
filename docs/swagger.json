@@ -137,7 +137,7 @@
                         },
                         "page": {
                           "type": "number",
-                          "example": 2
+                          "example": 1
                         },
                         "perPage": {
                           "type": "number",
@@ -149,7 +149,7 @@
                         },
                         "totalPages": {
                           "type": "number",
-                          "example": 4
+                          "example": 1
                         },
                         "hasNextPage": {
                           "type": "boolean",
